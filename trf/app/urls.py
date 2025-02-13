@@ -20,7 +20,7 @@ urlpatterns = [
 
     path('home', views.home, name='home'),
     path('admin/bookings', views.booking_list, name='admin_booking_list'),
-    path('admin/turfs', views.turf_list, name='admin_turf_list'),
+    # path('admin/turfs', views.turf_list, name='admin_turf_list'),
 
 
 
@@ -31,10 +31,9 @@ urlpatterns = [
 
 
     path('user_home/', views.user_home, name='user_home'),
-    path('booking/<int:turf_id>/', views.booking, name='booking'),
-    path('booking/confirmation/<int:booking_id>/', views.booking_confirmation, name='booking_confirmation'),
-    path('dashboard/', views.user_dashboard, name='user_dashboard'),
-
+    
+    path('book_turf/', views.book_turf, name='book_turf'),
+    path('booking_success/', views.booking_success, name='booking_success'),
     path('about/', views.about, name='about'),
 
            

@@ -131,9 +131,9 @@ def booking_list(request):
     bookings = Booking.objects.all()
     return render(request, 'booking_list.html', {'bookings': bookings})
 
-def turf_list(request):
-    turfs = Turf.objects.all()
-    return render(request, 'turf_list.html', {'turfs': turfs})
+# def turf_list(request):
+#     turfs = Turf.objects.all()
+#     return render(request, 'turf_list.html', {'turfs': turfs})
 
 
 
@@ -149,36 +149,9 @@ def user_home(request):
     turfs = Turf.objects.all()
     return render(request, 'user/user_home.html', {'turfs': turfs})
 
-def booking(request, turf_id):
-    turf = get_object_or_404(Turf, id=turf_id)
-    if request.method == "POST":
-        # Process the booking
-        booking_date = request.POST['date']
-        time_slot = request.POST['time_slot']
-
-        # Create the booking
-        booking = Booking(
-            user=request.user,
-            turf=turf,
-            date=booking_date,
-            time_slot=time_slot,
-            status='Pending'
-        )
-        booking.save()
-
-        # Redirect to booking confirmation page
-        return redirect('booking_confirmation', booking_id=booking.id)
-    
-    return render(request, 'booking_page.html', {'turf': turf})
-
-def booking_confirmation(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id)
-    return render(request, 'booking_confirmation.html', {'booking': booking})
 
 
-def user_dashboard(request):
-    bookings = Booking.objects.filter(user=request.user)
-    return render(request, 'user_dashboard.html', {'bookings': bookings})
+
 
 
 
@@ -193,15 +166,9 @@ def about(request):
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import ContactForm, Turf
+from .models import *
 
-def home(request):
-    """Home Page View"""
-    return render(request, "home.html")
 
-def about(request):
-    """About Page View"""
-    return render(request, "about.html")
 
 def contact(request):
     """Contact Page View"""
@@ -215,20 +182,52 @@ def contact(request):
 
         return HttpResponse("<h2>Thank you for contacting us! We will get back to you soon.</h2>")
 
-    return render(request, "contact.html")
+    return render(request, "user/contact.html")
 
-def booking(request):
-    """Booking Page View - Display available turfs"""
-    turfs = Turf.objects.all()
-    return render(request, "booking.html", {"turfs": turfs})
 
-def book_turf(request, turf_id):
-    """Book a specific turf"""
-    turf = Turf.objects.get(id=turf_id)
 
-    if turf.available_slots > 0:
-        turf.available_slots -= 1  # Reduce available slots
-        turf.save()
-        return HttpResponse(f"<h2>Booking Confirmed for {turf.name}!</h2>")
-    else:
-        return HttpResponse("<h2>Sorry, no slots available.</h2>")
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from .models import Turfs,Bookings
+from django.contrib import messages
+
+# views.py
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Turfs, Bookings
+
+def book_turf(request):
+    
+
+    if request.method == 'POST':
+        date = request.POST['date']
+        time_slot = request.POST['time_slot']
+        customer_name = request.POST.get('customer_name')
+        customer_email = request.POST.get('customer_email')
+
+        # Check if the slot is available
+        if Booking.objects.filter(date=date, time_slot=time_slot).exists():
+            return render(request, 'user/book_turf.html', {'turf': turf, 'error': 'This time slot is already booked.'})
+
+        # Save the booking
+        booking = Bookings(
+
+            date=date,
+            time_slot=time_slot,
+            customer_name=customer_name,
+            customer_email=customer_email
+        )
+        
+
+        return redirect('user/booking_success.html')  # Redirect after booking
+
+    return render(request, 'user/book_turf.html')
+
+
+
+
+
+def booking_success(request):
+    return render(request, 'user/booking_success.html')

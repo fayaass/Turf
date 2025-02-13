@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turf List</title>
+</head>
+<body>
+    <h1>All Turfs</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Price per Hour</th>
+            <th>Available Slots</th>
+        </tr>
+        {% for turf in turfs %}
+        <tr>
+            <td>{{ turf.name }}</td>
+            <td>{{ turf.location }}</td>
+            <td>{{ turf.price_per_hour }}</td>
+            <td>{{ turf.available_slots }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

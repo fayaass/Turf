@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Turf Booking</title>
+</head>
+<body>
+    <h1>Welcome to Football Turf Booking</h1>
+    <h2>Available Turfs</h2>
+    <ul>
+        {% for turf in turfs %}
+        <li>
+            <a href="{% url 'booking' turf.id %}">{{ turf.name }} - {{ turf.location }}</a>
+            <p>Price per hour: {{ turf.price_per_hour }} USD</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

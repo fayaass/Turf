@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Total Bookings: {{ total_bookings }}</p>
+    <p>Total Turfs: {{ total_turfs }}</p>
+    <a href="{% url 'admin:booking_list' %}">View All Bookings</a>
+    <a href="{% url 'admin:turf_list' %}">View All Turfs</a>
+</body>
+</html>

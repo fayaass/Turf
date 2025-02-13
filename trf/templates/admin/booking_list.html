@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking List</title>
+</head>
+<body>
+    <h1>All Bookings</h1>
+    <table border="1">
+        <tr>
+            <th>User</th>
+            <th>Turf</th>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Status</th>
+        </tr>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.user.username }}</td>
+            <td>{{ booking.turf.name }}</td>
+            <td>{{ booking.date }}</td>
+            <td>{{ booking.time_slot }}</td>
+            <td>{{ booking.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Sportigo Sports City</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7fdf7; /* Light Green Tint */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #1e3d35; /* Dark Green */
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #ffb400; /* Luxurious Gold */
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: white;
+            border-bottom: 2px solid white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background-image: url('../../static/turf-background.jpg'); /* Add a turf-related image */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 140px 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-top: 15px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        /* About Section */
+        .about-container {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .about-container h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #1e3d35; /* Dark Green */
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .about-container h2::after {
+            content: '';
+            width: 50px;
+            height: 4px;
+            background: #ffb400; /* Gold */
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-container p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            width: 30%;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-item img {
+            width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #1e3d35;
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            color: #777;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1e3d35;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #ffb400;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .feature-item {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/booking">Book Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>About Sportigo Sports City</h1>
+        <p>Experience world-class football turf with premium facilities.</p>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-container">
+        <h2>Who We Are</h2>
+        <p>
+            Sportigo Sports City is the ultimate destination for football enthusiasts. 
+            Whether you're a casual player or a serious team, our state-of-the-art turf provides the perfect ground for your game. 
+            Our facilities are designed to offer the best football experience, with premium lighting, artificial grass, and booking convenience.
+        </p>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-item">
+                <img src="../../static/icon-quality.png" alt="Premium Quality">
+                <h3>Premium Turf</h3>
+                <p>Our FIFA-approved synthetic grass ensures a professional playing experience.</p>
+            </div>
+
+            <div class="feature-item">
+                <img src="../../static/icon-light.png" alt="Floodlights">
+                <h3>Floodlights</h3>
+                <p>Play day or night with high-intensity stadium floodlights.</p>
+            </div>
+
+            <div class="feature-item">
+                <img src="../../static/icon-booking.png" alt="Easy Booking">
+                <h3>Easy Booking</h3>
+                <p>Book online instantly with our seamless reservation system.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Sportigo Sports City. All rights reserved.</p>
+        <p>Designed by <a href="#">Your Company</a></p>
+    </footer>
+
+</body>
+</html>
+

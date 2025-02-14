@@ -33,7 +33,7 @@ urlpatterns = [
     path('user_home/', views.user_home, name='user_home'),
     
     path('book_turf/', views.book_turf, name='book_turf'),
-    path('booking_success/', views.booking_success, name='booking_success'),
+    path('user/booking_success/', views.booking_success, name='booking_success'),
     path('about/', views.about, name='about'),
 
            

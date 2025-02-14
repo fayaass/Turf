@@ -188,9 +188,12 @@ def contact(request):
 
 
 
+
+
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Turfs,Bookings
+from .models import Turfs,Bookings,Turf
 from django.contrib import messages
 
 # views.py
@@ -229,5 +232,18 @@ def book_turf(request):
 
 
 
+
+from django.shortcuts import render
+
 def booking_success(request):
-    return render(request, 'user/booking_success.html')
+    return render(request, 'user/booking_success.html')  # Ensure this template exists
+
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Booking
+
+# @login_required
+# def see_bookings(request):
+#     bookings = Booking.objects.filter(user=request.user).order_by('-date')
+#     return render(request, 'see_bookings.html', {'bookings': bookings})

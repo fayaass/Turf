@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,59 +15,63 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f9;
             color: #333;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: #2c3e50;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar h1 {
-            color: white;
-            font-size: 24px;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 18px;
-            margin-left: 20px;
-            transition: color 0.3s ease;
-        }
-
-        .navbar a:hover {
-            color: #3498db;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 60px auto 30px;
             padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        /* Navbar */
+        nav {
+            background-color: #144d14;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #ffcc00;
+        }
+
 
         h1 {
+            color: #3498db;
+            margin-bottom: 20px;
             text-align: center;
-            font-size: 2.5rem;
-            color: #2980b9;
-            margin-bottom: 30px;
         }
 
-        /* Booking List */
         .booking-list {
             list-style: none;
             padding: 0;
@@ -71,94 +79,70 @@
 
         .booking-list li {
             background-color: #ecf0f1;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
             border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .booking-list li div {
             flex: 1;
-            margin-right: 20px;
         }
 
-        .booking-list li p {
-            margin: 5px 0;
-            font-size: 1rem;
+        .booking-list li a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        /* Delete Button */
+        .booking-list li a:hover {
+            text-decoration: underline;
+        }
+
         .delete-btn {
             background-color: #e74c3c;
             color: white;
             font-weight: bold;
             border-radius: 5px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             text-decoration: none;
+            transition: background-color 0.3s ease;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
         .delete-btn:hover {
             background-color: #c0392b;
         }
 
-        /* Empty Message */
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
         .no-bookings {
             text-align: center;
             color: #999;
-            font-size: 1.2rem;
-            margin-top: 30px;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            color: #888;
-            margin-top: 50px;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .booking-list li {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .booking-list li div {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-
-            .delete-btn {
-                width: 100%;
-                padding: 12px 0;
-            }
         }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/booking_slots">Book Now</a></li>
+            <li><a href="/view_bookings">Bookings</a></li>
+            <li><a href="/shp_logout">Logout</a></li>
+        </ul>
+    </nav>
 
-    <!-- Navbar -->
-    <div class="navbar">
-        <h1>Sportigo Sports City</h1>
-        <div>
-            <a href="/">Home</a>
-            <a href="/booking_list">Bookings</a>
-            <a href="/shp_logout">Logout</a>
-        </div>
-    </div>
-
-    <!-- Main Content -->
     <div class="container">
         <h1>All Bookings</h1>
 
@@ -172,7 +156,7 @@
                         <p><strong>Date and Time:</strong> {{ booking.date }}</p>
                     </div>
                     <div>
-                        <form method="POST" action="{% url 'delete_booking_admin' booking.id %}" style="display: inline;">
+                        <form method="POST" action="{% url 'delete_booking' booking.id %}" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" class="delete-btn">Delete</button>
                         </form>

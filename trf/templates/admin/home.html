@@ -4,12 +4,143 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: white;
+            font-size: 24px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #3498db;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            color: #3498db;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            max-width: 48%;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .stat-card p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
-    <p>Total Bookings: {{ total_bookings }}</p>
-    <p>Total Turfs: {{ total_turfs }}</p>
-    <a href="{% url 'admin:booking_list' %}">View All Bookings</a>
-    <a href="{% url 'admin:turf_list' %}">View All Turfs</a>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Sportigo Sports City</h1>
+        <div>
+            <a href="#">Home</a>
+            <a href="/booking_list">Bookings</a>
+            <a href="/shp_logout">Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Dashboard Overview</h2>
+
+        <div class="stats">
+            <!-- Total Bookings Card -->
+            <div class="stat-card">
+                <h3>Total Bookings</h3>
+                <p>Number of total bookings</p>
+                <div class="value">{{ booking_list }}</div>
+            </div>
+
+            <!-- Total Turfs Card -->
+            <div class="stat-card">
+                <h3>Total Turfs</h3>
+                <p>Number of turfs available</p>
+                <div class="value">{{ total_turfs }}</div>
+            </div>
+        </div>
+
+        <!-- Additional info can be added here -->
+        <!-- You can also add graphs or detailed tables if needed in the future -->
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Turf Booking System. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>

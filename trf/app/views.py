@@ -3,39 +3,6 @@ from django.contrib.auth import authenticate,login,logout
 from .models import *
 import os
 
-from .models import Booking, Turf
-from django.contrib.auth.models import User
-from django.contrib import messages
-
-
-
-
-# from django.urls import reverse_lazy
-# from django.contrib.auth.views import (
-#     PasswordResetView, 
-#     PasswordResetDoneView, 
-#     PasswordResetConfirmView, 
-#     PasswordResetCompleteView
-# )
-
-# class CustomPasswordResetView(PasswordResetView):
-#     template_name = 'password_reset.html'
-#     email_template_name = 'password_reset_email.html'
-#     subject_template_name = 'password_reset_subject.txt'
-#     success_url = reverse_lazy('password_reset_done')
-
-
-# class CustomPasswordResetDoneView(PasswordResetDoneView):
-#     template_name = 'password_reset_done.html'
-
-# class CustomPasswordResetConfirmView(PasswordResetConfirmView):
-#     template_name = 'password_reset_confirm.html'
-#     success_url = reverse_lazy('password_reset_complete')
-
-# class CustomPasswordResetCompleteView(PasswordResetCompleteView):
-#     template_name = 'password_reset_complete.html'
-
-
 
 
 
@@ -116,57 +83,39 @@ def register(req):
         return render(req,'user/register.html')
 
 #-------------------admin------------------------------------
+from django.shortcuts import render, get_object_or_404, redirect
+
 
 def home(request):
-    # Admin Dashboard
-    total_bookings = Booking.objects.count()
-    total_turfs = Turf.objects.count()
-    return render(request, 'admin_dashboard.html', {
-        'total_bookings': total_bookings,
-        'total_turfs': total_turfs
-    })
+    
+    return render(request, 'admin/home.html')
+
 
 
 def booking_list(request):
-    bookings = Booking.objects.all()
-    return render(request, 'booking_list.html', {'bookings': bookings})
-
-# def turf_list(request):
-#     turfs = Turf.objects.all()
-#     return render(request, 'turf_list.html', {'turfs': turfs})
+    bookings = Turf.objects.all()
+    return render(request, 'admin/booking_list.html', {'bookings': bookings})
 
 
+# View for deleting a booking
+def delete_booking_admin(request, pk):
+    booking = get_object_or_404(Turf, pk=pk)
+    if request.method == 'POST':
+        booking.delete()
+        return redirect('booking_list')  # Redirect to the booking list page after deletion
 
 
 #---------------------------user--------------------------
 
-from django.shortcuts import render, get_object_or_404, redirect
-
-from .models import Turf, Booking
-from datetime import datetime
-
 def user_home(request):
-    turfs = Turf.objects.all()
-    return render(request, 'user/user_home.html', {'turfs': turfs})
+    
+    return render(request, 'user/user_home.html')
 
 
-
-
-
-
-
-
-
-from django.shortcuts import render
 
 def about(request):
     return render(request, 'user/about.html')  # Ensure about.html is inside your templates folder
 
-
-
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import *
 
 
 
@@ -189,61 +138,42 @@ def contact(request):
 
 
 
+from django.shortcuts import render ,  get_object_or_404, redirect
+from .models import Turf
+from .forms import TurfBookingForm
 
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
-from .models import Turfs,Bookings,Turf
-from django.contrib import messages
-
-# views.py
-
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Turfs, Bookings
-
-def book_turf(request):
+# View for booking slots
+def booking_slots(request):
+    if request.method == "POST":
+        form = TurfBookingForm(request.POST)
+        if form.is_valid():
+            # Save the booking data
+            form.save()
+            # Redirect to the success page
+            return redirect('booking_success')
+    else:
+        form = TurfBookingForm()
     
+    return render(request, 'user/booking_slots.html', {'form': form})
 
-    if request.method == 'POST':
-        date = request.POST['date']
-        time_slot = request.POST['time_slot']
-        customer_name = request.POST.get('customer_name')
-        customer_email = request.POST.get('customer_email')
-
-        # Check if the slot is available
-        if Booking.objects.filter(date=date, time_slot=time_slot).exists():
-            return render(request, 'user/book_turf.html', {'turf': turf, 'error': 'This time slot is already booked.'})
-
-        # Save the booking
-        booking = Bookings(
-
-            date=date,
-            time_slot=time_slot,
-            customer_name=customer_name,
-            customer_email=customer_email
-        )
-        
-
-        return redirect('user/booking_success.html')  # Redirect after booking
-
-    return render(request, 'user/book_turf.html')
-
-
-
-
-
-
-from django.shortcuts import render
-
+# View for booking success
 def booking_success(request):
-    return render(request, 'user/booking_success.html')  # Ensure this template exists
+    return render(request, 'user/booking_success.html')
 
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from .models import Booking
 
-# @login_required
-# def see_bookings(request):
-#     bookings = Booking.objects.filter(user=request.user).order_by('-date')
-#     return render(request, 'see_bookings.html', {'bookings': bookings})
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Turf
+
+# View for listing all bookings
+def view_bookings(request):
+    bookings = Turf.objects.all()
+    return render(request, 'user/view_bookings.html', {'bookings': bookings})
+
+# View for deleting a booking
+def delete_booking(request, pk):
+    booking = get_object_or_404(Turf, pk=pk)
+    if request.method == 'POST':
+        booking.delete()
+        return redirect('view_bookings')  # Redirect to the booking list page after deletion
+

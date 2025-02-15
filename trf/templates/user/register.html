@@ -67,12 +67,38 @@
         .register-link a:hover {
             text-decoration: underline;
         }
+
+        /* Styling for Django messages */
+        .alert {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .alert-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .alert-success {
+            background-color: #27ae60;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="card">
         <h2>Register</h2><br>
-        <form action="#" method="POST">
+
+        <!-- Django Messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form action="{% url 'register' %}" method="POST"> <!-- ✅ Fixed action URL -->
             {% csrf_token %}
             <div class="mb-3">
                 <input type="text" id="name" name="name" placeholder="Enter your name" class="form-control" required>

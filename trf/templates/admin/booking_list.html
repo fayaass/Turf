@@ -27,6 +27,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+             
         }
 
         .navbar h1 {
@@ -116,11 +117,20 @@
         }
 
         /* Footer */
-        .footer {
+        footer {
+            background: #2c3e50;
+            color: white;
             text-align: center;
-            color: #888;
-            margin-top: 50px;
-            font-size: 0.9rem;
+            padding: 20px;
+            width: 100vw;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
         }
 
         /* Responsive Design */
@@ -183,10 +193,12 @@
             {% endfor %}
         </ul>
 
-        <div class="footer">
-            <p>Need to modify your booking? Please contact support.</p>
-        </div>
+        
     </div>
+    <footer>
+        <p>&copy; 2025 SPORTIGO SPORTS CITY. All rights reserved.</p>
+    </footer>
+
 
 </body>
 </html>

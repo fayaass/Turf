@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +33,8 @@
             padding: 15px 0;
             position: fixed;
             top: 0;
-            width: 100%;
+            left: 0;
+            width: 100vw;
             z-index: 10;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
@@ -46,6 +43,8 @@
             display: flex;
             justify-content: center;
             list-style: none;
+            width: 100%;
+            padding: 0;
         }
 
         nav ul li {
@@ -64,7 +63,6 @@
         nav ul li a:hover {
             color: #ffcc00;
         }
-
 
         h1 {
             color: #3498db;
@@ -129,6 +127,22 @@
             text-align: center;
             color: #999;
         }
+        /* Footer */
+        footer {
+            background: #144d14;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            width: 100vw;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -141,7 +155,7 @@
             <li><a href="/view_bookings">Bookings</a></li>
             <li><a href="/shp_logout">Logout</a></li>
         </ul>
-    </nav>
+    </nav><br><br><br><br><br><br><br>
 
     <div class="container">
         <h1>All Bookings</h1>
@@ -166,11 +180,10 @@
                 <li class="no-bookings">No bookings available.</li>
             {% endfor %}
         </ul>
-
-        <div class="footer">
-            <p>Need to modify your booking? Please contact support.</p>
-        </div>
     </div>
-
+    <footer>
+        <p>&copy; 2025 SPORTIGO SPORTS CITY. All rights reserved.</p>
+    </footer>
 </body>
 </html>
+

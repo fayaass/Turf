@@ -16,6 +16,8 @@
             font-family: 'Arial', sans-serif;
             background-color: #f4f6f9;
             color: #333;
+            background: url('../../static/Soccer-Field-Night.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
         /* Navbar */
@@ -43,22 +45,24 @@
         .navbar a:hover {
             color: #3498db;
         }
-
-        /* Main Content */
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .container h2 {
-            color: #3498db;
-            margin-bottom: 30px;
+        .hero {
+            
+            color: rgb(255, 255, 255);
             text-align: center;
+            padding: 150px 20px;
+            animation: fadeIn 1.5s ease-in-out;
+            height: 600px;
         }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        
+       
+        
 
         .stats {
             display: flex;
@@ -93,11 +97,21 @@
             color: #3498db;
         }
 
+        /* Footer */
         footer {
-            margin-top: 30px;
+            background: #2c3e50;
+            color: white;
             text-align: center;
-            font-size: 14px;
-            color: #888;
+            padding: 20px;
+            width: 100vw;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        footer a {
+            color: #ffcc00;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -114,24 +128,12 @@
     </div>
 
     <!-- Main Content -->
-    <div class="container">
-        <h2>Dashboard Overview</h2>
+    <div class="hero">
+        <h1><i class="fas fa-futbol"></i> SPORTIGO SPORTS CITY</h1>
+        
+        
 
-        <div class="stats">
-            <!-- Total Bookings Card -->
-            <div class="stat-card">
-                <h3>Total Bookings</h3>
-                <p>Number of total bookings</p>
-                <div class="value">{{ booking_list }}</div>
-            </div>
-
-            <!-- Total Turfs Card -->
-            <div class="stat-card">
-                <h3>Total Turfs</h3>
-                <p>Number of turfs available</p>
-                <div class="value">{{ total_turfs }}</div>
-            </div>
-        </div>
+    </div>
 
         <!-- Additional info can be added here -->
         <!-- You can also add graphs or detailed tables if needed in the future -->
@@ -139,7 +141,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Turf Booking System. All Rights Reserved.</p>
+        <p>&copy; 2025 SPORTIGO SPORTS CITY. All rights reserved.</p>
     </footer>
 
 </body>

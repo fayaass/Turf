@@ -22,20 +22,19 @@
 
         /* Navbar */
         nav {
-            background-color: #1e3d35; /* Dark Green */
-            padding: 20px;
+            background-color: #144d14;
+            padding: 15px 0;
             position: fixed;
-            width: 100%;
             top: 0;
-            left: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
+            width: 100%;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         nav ul {
-            list-style: none;
             display: flex;
+            justify-content: center;
+            list-style: none;
         }
 
         nav ul li {
@@ -43,27 +42,27 @@
         }
 
         nav ul li a {
-            text-decoration: none;
-            color: #ffb400; /* Luxurious Gold */
+            color: white;
             font-size: 1.2rem;
-            font-weight: 600;
+            font-weight: bold;
             text-transform: uppercase;
-            transition: 0.3s ease;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
         }
 
         nav ul li a:hover {
-            color: white;
-            border-bottom: 2px solid white;
+            color: #ffcc00;
         }
 
         /* Hero Section */
         .hero {
-            background-image: url('../../static/turf-background.jpg'); /* Add a turf-related image */
+            background-image: url('../../static/aaa.jpeg'); /* Add a turf-related image */
             background-size: cover;
             background-position: center;
-            color: white;
+            color: rgb(255, 255, 255);
             text-align: center;
             padding: 140px 20px;
+            height: 600px;
         }
 
         .hero h1 {
@@ -152,23 +151,18 @@
             color: #777;
         }
 
-        /* Footer */
-        footer {
-            background-color: #1e3d35;
+         /* Footer */
+         footer {
+            background: #144d14;
             color: white;
             text-align: center;
-            padding: 30px;
+            padding: 20px;
             margin-top: 50px;
         }
 
         footer a {
-            color: #ffb400;
+            color: #ffcc00;
             text-decoration: none;
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
         }
 
         /* Animations */
@@ -209,13 +203,13 @@
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav>
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
-            <li><a href="/book_turf">Book Now</a></li>
+            <li><a href="/booking_slots">Book Now</a></li>
+            <li><a href="/view_bookings">Bookings</a></li>
             <li><a href="/shp_logout">Logout</a></li>
         </ul>
     </nav>
@@ -238,19 +232,19 @@
         <!-- Features Section -->
         <div class="features">
             <div class="feature-item">
-                <img src="../../static/icon-quality.png" alt="Premium Quality">
+                <img src="../../static/turf.jpg" alt="Premium Quality">
                 <h3>Premium Turf</h3>
                 <p>Our FIFA-approved synthetic grass ensures a professional playing experience.</p>
             </div>
 
             <div class="feature-item">
-                <img src="../../static/icon-light.png" alt="Floodlights">
+                <img src="../../static/floodlight.jpg" alt="Floodlights">
                 <h3>Floodlights</h3>
                 <p>Play day or night with high-intensity stadium floodlights.</p>
             </div>
 
             <div class="feature-item">
-                <img src="../../static/icon-booking.png" alt="Easy Booking">
+                <img src="../../static/booking.jpg" alt="Easy Booking">
                 <h3>Easy Booking</h3>
                 <p>Book online instantly with our seamless reservation system.</p>
             </div>
@@ -259,8 +253,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Sportigo Sports City. All rights reserved.</p>
-        <p>Designed by <a href="#">Your Company</a></p>
+        <p>&copy; 2025 SPORTIGO SPORTS CITY. All rights reserved.</p>
     </footer>
 
 </body>

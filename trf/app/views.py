@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 import os
-
+from django.contrib import messages
 
 
 
@@ -65,22 +65,40 @@ def shp_logout(req):
     logout(req)
     return redirect(shp_login)
 
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import messages
+
 def register(req):
-    if req.method=='POST':
-        name=req.POST['name']
-        email=req.POST['email']
-        password=req.POST['password']
-        # send_mail('user registration','eshop account created', settings.EMAIL_HOST_USER, [email])
+    if req.method == 'POST':
+        name = req.POST.get('name', '').strip()
+        email = req.POST.get('email', '').strip()
+        password = req.POST.get('password', '').strip()
+
+        # Check if fields are empty
+        if not name or not email or not password:
+            messages.error(req, "All fields are required.")
+            return redirect('register')
+
+        # Check if email already exists
+        if User.objects.filter(email=email).exists():
+            messages.warning(req, "User already exists.")
+            return redirect('register')
+
+        # Create and save user
         try:
-           
-            data=User.objects.create_user(first_name=name,email=email,password=password,username=email)
-            data.save()
-            return redirect(shp_login)
-        except:
-            messages.warning(req,'User already exists.')
-            return redirect(register)
-    else:
-        return render(req,'user/register.html')
+            user = User.objects.create_user(username=email, first_name=name, email=email, password=password)
+            user.save()
+            messages.success(req, "Account created successfully! Please log in.")
+            return redirect('shp_login')  # Ensure 'shp_login' is a valid route name
+        except Exception as e:
+            messages.error(req, f"Error: {str(e)}")
+            return redirect('register')
+
+    return render(req, 'user/register.html')
+
 
 #-------------------admin------------------------------------
 from django.shortcuts import render, get_object_or_404, redirect
@@ -118,20 +136,34 @@ def about(request):
 
 
 
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.core.mail import send_mail
 
 def contact(request):
-    """Contact Page View"""
+    """Contact Page View - Sends Message to Admin Email"""
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
         message = request.POST.get("message")
 
-        # Save contact form details to the database
-        ContactForm.objects.create(name=name, email=email, message=message)
+        # Email Subject & Message Body
+        subject = f"New Contact Form Submission from {name}"
+        message_body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
 
-        return HttpResponse("<h2>Thank you for contacting us! We will get back to you soon.</h2>")
+        # Send Email
+        send_mail(
+            subject,
+            message_body,
+            "your-email@gmail.com",  # Sender (must match EMAIL_HOST_USER)
+            ["muhammedfayas815@gmail.com"],  # Receiver (your email or admin email)
+            fail_silently=False,
+        )
+
+        return HttpResponse('user/success.html')
 
     return render(request, "user/contact.html")
+
 
 
 
@@ -142,19 +174,49 @@ from django.shortcuts import render ,  get_object_or_404, redirect
 from .models import Turf
 from .forms import TurfBookingForm
 
-# View for booking slots
+
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Turf  # Ensure you import your booking model
+from .forms import TurfBookingForm
+
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import Turf
+from .forms import TurfBookingForm
+
+@login_required  # Ensure only logged-in users can book
 def booking_slots(request):
     if request.method == "POST":
         form = TurfBookingForm(request.POST)
         if form.is_valid():
-            # Save the booking data
-            form.save()
-            # Redirect to the success page
-            return redirect('booking_success')
+            selected_slot = form.cleaned_data['date']  # Get selected date/time
+            selected_game = form.cleaned_data['game']  # Get selected game
+
+            # Check if the same date and time is already booked for the same sport
+            if Turf.objects.filter(date=selected_slot, game=selected_game).exists():
+                messages.error(request, "This slot is already booked for this sport. Please choose a different one.")
+            else:
+                booking = form.save(commit=False)  # Do not save immediately
+                booking.user = request.user  # Assign the logged-in user
+                booking.save()  # Save the booking
+                messages.success(request, "Your slot has been successfully booked!")
+                return redirect('booking_success')  # Redirect on success
     else:
         form = TurfBookingForm()
     
     return render(request, 'user/booking_slots.html', {'form': form})
+
+
+
+
+
+
+
+
+
 
 # View for booking success
 def booking_success(request):
@@ -166,9 +228,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Turf
 
 # View for listing all bookings
+from django.contrib.auth.decorators import login_required
+
+@login_required  # Ensure user is logged in
 def view_bookings(request):
-    bookings = Turf.objects.all()
+    bookings = Turf.objects.filter(user=request.user)  # Show only user's bookings
     return render(request, 'user/view_bookings.html', {'bookings': bookings})
+
 
 # View for deleting a booking
 def delete_booking(request, pk):

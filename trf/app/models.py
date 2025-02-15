@@ -1,25 +1,26 @@
 from django.db import models
 
+from django.contrib.auth.models import User  # Import User model
+
 class Turf(models.Model):
-    # Fields for the turf
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Allow null temporarily
     name = models.CharField(max_length=255)
     email = models.EmailField()
     date = models.DateTimeField()
-    
-    # Choices for games
+
     CRICKET = 'cricket'
     FOOTBALL = 'football'
     GAME_CHOICES = [
         (CRICKET, 'Cricket'),
         (FOOTBALL, 'Football'),
     ]
-    
-    # Field for selecting games
+
     game = models.CharField(
         max_length=10,
         choices=GAME_CHOICES,
-        default=CRICKET,  # You can set a default game
+        default=CRICKET,
     )
-    
+
     def __str__(self):
         return f"{self.name} - {self.get_game_display()}"
+

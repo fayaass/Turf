@@ -1,12 +1,21 @@
 from django.urls import path
 from . import views
+from .views import (
+    CustomPasswordResetView,
+    CustomPasswordResetDoneView,
+    CustomPasswordResetConfirmView,
+    CustomPasswordResetCompleteView,
+)
 
 
 
 urlpatterns = [
 
 
-    
+    path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('',views.shp_login, name='shp_login'),
     path('shp_login1/', views.shp_login1, name='shp_login1'),
@@ -49,6 +58,7 @@ urlpatterns = [
     path('view_bookings/', views.view_bookings, name='view_bookings'),
     path('delete_booking/<int:pk>/', views.delete_booking, name='delete_booking'),
     
+    path('success/', views.success, name='success'),
 ]
 
 

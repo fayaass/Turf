@@ -54,6 +54,7 @@
         nav ul li a:hover {
             color: #ffcc00;
         }
+
         /* Hamburger menu */
         .hamburger {
             display: none;
@@ -150,6 +151,7 @@
             position: fixed;
             bottom: 0;
         }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             nav ul {
@@ -247,7 +249,23 @@
     <footer>
         <p>&copy; 2025 SPORTIGO SPORTS CITY. All rights reserved.</p>
     </footer>
+
     <script>
+        // Set the min attribute to the current date and time
+        document.addEventListener("DOMContentLoaded", function() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            
+            const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+            
+            const dateInput = document.getElementById("date");
+            dateInput.setAttribute("min", currentDateTime);
+        });
+
         // Toggle hamburger menu
         const hamburger = document.getElementById("hamburger");
         const menu = document.querySelector("nav ul");
@@ -259,4 +277,3 @@
     </script>
 </body>
 </html>
-

@@ -136,9 +136,9 @@ def about(request):
 
 
 
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 def contact(request):
     """Contact Page View - Sends Message to Admin Email"""
@@ -160,9 +160,11 @@ def contact(request):
             fail_silently=False,
         )
 
-        return HttpResponse('user/success.html')
+        # Redirect to the success page after sending the email
+        return redirect('success')  # Assuming you've defined a URL for the success page
 
     return render(request, "user/contact.html")
+
 
 
 
@@ -242,4 +244,47 @@ def delete_booking(request, pk):
     if request.method == 'POST':
         booking.delete()
         return redirect('view_bookings')  # Redirect to the booking list page after deletion
+
+
+
+def success(request):
+    return render(request, 'user/success.html')
+
+
+
+
+
+    from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.utils.crypto import get_random_string
+
+# Mock function to simulate email sending for verification
+from django.urls import reverse_lazy
+from django.contrib.auth.views import (
+    PasswordResetView, 
+    PasswordResetDoneView, 
+    PasswordResetConfirmView, 
+    PasswordResetCompleteView
+)
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'password_reset.html'
+    email_template_name = 'password_reset_email.html'
+    subject_template_name = 'password_reset_subject.txt'
+    success_url = reverse_lazy('password_reset_done')
+
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'password_reset_done.html'
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'password_reset_confirm.html'
+    success_url = reverse_lazy('password_reset_complete')
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'password_reset_complete.html'
+
 

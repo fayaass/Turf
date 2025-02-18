@@ -82,9 +82,18 @@
             <button type="submit" class="btn btn-login">Login</button>
             
             <div class="register-link">
-                <a href="{% url 'register' %}">Don't have an account? Register</a>
+                <a href="{% url 'register' %}">Don't have an account? Register</a><br>
+                <a href="{% url 'password_reset' %}" class="btn-link">Forgot Password?</a>
             </div>
         </form>
     </div>
+    <script>
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordField = document.getElementById('passwd');
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+        }
+    </script>
 </body>
 </html>

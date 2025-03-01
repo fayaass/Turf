@@ -20,7 +20,9 @@ urlpatterns = [
     path('',views.shp_login, name='shp_login'),
     path('shp_login1/', views.shp_login1, name='shp_login1'),
     path('shp_logout/',views.shp_logout, name='shp_logout'),
-    path('register/', views.register, name='register'),
+    
+    path('register/',views.register , name='register'),
+    path('verifyotp/',views.verify_otp_reg, name='verify_otp_reg'),
 
 
     #---admin----

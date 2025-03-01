@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -83,6 +83,14 @@
             text-align: center;
             color: #3498db;
             margin-bottom: 20px;
+        }
+        h2 {
+            text-align: justify;
+            color: #144d14;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            width: 100%;
+            font-size: medium;
         }
 
         form {
@@ -192,8 +200,7 @@
 <body>
     <nav>
         <div class="hamburger" id="hamburger">
-            <i class="fas fa-bars">☰
-            </i>
+            <i class="fas fa-bars">☰</i>
         </div>
         <ul>
             <li><a href="/">Home</a></li>
@@ -208,14 +215,6 @@
     <div class="container">
         <h1>Book a Turf Slot</h1>
         
-        {% if messages %}
-            <div style="color: red; text-align: center; font-weight: bold; margin-bottom: 10px;">
-                {% for message in messages %}
-                    <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-
         <form method="POST">
             {% csrf_token %}
             
@@ -243,7 +242,19 @@
             </div>
             
             <button type="submit">Book Your Slot</button>
-        </form>
+        </form><br><br>
+        
+        <h2>Time for Booking: 
+            (09:00AM, 10:00AM, 11:00AM, 12:00PM, 01:00PM, 02:00PM, 03:00PM, 04:00PM, 05:00PM, 06:00PM, 07:00PM, 08:00PM, 09:00PM)
+        </h2>
+        
+        {% if messages %}
+            <div style="color: red; text-align: center; font-weight: bold; margin-bottom: 10px;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 
     <footer>
@@ -251,7 +262,7 @@
     </footer>
 
     <script>
-        // Set the min attribute to the current date and time
+        // Set the min and max attributes for datetime-local input
         document.addEventListener("DOMContentLoaded", function() {
             const now = new Date();
             const year = now.getFullYear();
@@ -260,10 +271,14 @@
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             
-            const currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+            // Set the minimum datetime to the current date but at 9:00 AM
+            const minTime = `${year}-${month}-${day}T09:00`;
+            // Set the maximum datetime to the current date but at 9:00 PM
+            const maxTime = `${year}-${month}-${day}T21:00`;
             
             const dateInput = document.getElementById("date");
-            dateInput.setAttribute("min", currentDateTime);
+            dateInput.setAttribute("min", minTime);
+            dateInput.setAttribute("max", maxTime);
         });
 
         // Toggle hamburger menu
@@ -276,4 +291,14 @@
         });
     </script>
 </body>
-</html>
+</html> 
+
+
+
+
+
+
+
+
+
+

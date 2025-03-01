@@ -105,7 +105,7 @@ def verify_otp_reg(req):
             user.is_verified = True
             user.save()      
             messages.success(req, "Registration successful! You can now log in.")
-            send_mail('User Registration Succesfull', 'Account Created Succesfully And Welcome To Bookmart', settings.EMAIL_HOST_USER, [email])
+            send_mail('User Registration Succesfull', 'Account Created Succesfully And Welcome To Sportigo Sports City', settings.EMAIL_HOST_USER, [email])
             return redirect('shp_login1')
         else:
             messages.warning(req, "Invalid OTP. Try again.")
@@ -204,6 +204,12 @@ from django.shortcuts import render, redirect
 from .models import Turf
 from .forms import TurfBookingForm
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import TurfBookingForm
+from .models import Turf
+
 @login_required  # Ensure only logged-in users can book
 def booking_slots(request):
     if request.method == "POST":
@@ -222,7 +228,11 @@ def booking_slots(request):
                 messages.success(request, "Your slot has been successfully booked!")
                 return redirect('booking_success')  # Redirect on success
     else:
-        form = TurfBookingForm()
+        # Pre-populate the form with the logged-in user's details
+        form = TurfBookingForm(initial={
+            'name': request.user.first_name or request.user.username,  # You can adjust to use the appropriate field
+            'email': request.user.email
+        })
     
     return render(request, 'user/booking_slots.html', {'form': form})
 
